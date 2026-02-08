@@ -1,0 +1,14 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#050505"/>
+  <path d="M256 56 L429 156 V356 L256 456 L83 356 V156 Z" fill="none" stroke="#00ff41" stroke-width="15"/>
+  <circle cx="83" cy="156" r="8" fill="white"/>
+  <circle cx="429" cy="156" r="8" fill="white"/>
+  <circle cx="429" cy="356" r="8" fill="white"/>
+  <circle cx="83" cy="356" r="8" fill="white"/>
+  <circle cx="256" cy="56" r="8" fill="white"/>
+  <circle cx="256" cy="456" r="8" fill="white"/>
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="monospace" font-weight="bold" font-size="180" fill="#00ff41">AG</text>
+  <path d="M83 156 L256 256" stroke="#008F11" stroke-width="2" opacity="0.5"/>
+  <path d="M429 156 L256 256" stroke="#008F11" stroke-width="2" opacity="0.5"/>
+  <path d="M256 456 L256 256" stroke="#008F11" stroke-width="2" opacity="0.5"/>
+</svg>
