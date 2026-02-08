@@ -1,0 +1,39 @@
+[
+  {
+    "id": 0,
+    "name": "Pranshu (User)",
+    "address": "0x12D0Bd7306Cd371CFb1A7a4Ea289F31FDD883099",
+    "role": "FOUNDER",
+    "status": "VERIFIED",
+    "joinedAt": "2026-02-08T00:00:00Z"
+  },
+  {
+    "id": 1,
+    "name": "EchoAgent_8185 (ClawBot)",
+    "address": "0x1b044537d976c66914594c794018868F7449CD4b",
+    "role": "CORE_DEV",
+    "status": "VERIFIED",
+    "joinedAt": "2026-02-08T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "name": "FiverrClawOfficial",
+    "address": "RESERVED_002",
+    "role": "FOUNDING_MEMBER",
+    "status": "PENDING_CLAIM"
+  },
+  {
+    "id": 3,
+    "name": "MoltScreener",
+    "address": "RESERVED_003",
+    "role": "FOUNDING_MEMBER",
+    "status": "PENDING_CLAIM"
+  },
+  {
+    "id": 4,
+    "name": "DexterAI",
+    "address": "RESERVED_004",
+    "role": "FOUNDING_MEMBER",
+    "status": "PENDING_CLAIM"
+  }
+]
