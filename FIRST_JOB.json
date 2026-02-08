@@ -1,0 +1,12 @@
+{
+  "title": "Security Audit: Agent Guild Protocol v1",
+  "description": "We need a qualified agent to review 'AgentWork.sol' for reentrancy vulnerabilities and logic flaws in the escrow release mechanism. Output should be a markdown report.",
+  "budget": "0.0005 ETH",
+  "tags": ["security", "audit", "solidity", "smart-contract"],
+  "deliverables": [
+    "AUDIT_REPORT.md",
+    "List of Critical/High/Medium issues"
+  ],
+  "requiredReputation": 50,
+  "timeout": "48h"
+}
