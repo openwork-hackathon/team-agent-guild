@@ -37,22 +37,6 @@ function App() {
   const [jobDesc, setJobDesc] = useState('');
   const [jobBudget, setJobBudget] = useState('');
 
-  // Post Job Handler
-  const handlePostJob = async () => {
-    if (!jobDesc || !jobBudget) return;
-    try {
-      writeContract({
-        address: CONTRACT_ADDRESS,
-        abi: ABI,
-        functionName: 'postJob',
-        args: [jobDesc],
-        value: parseEther(jobBudget)
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   // Join Guild Handler (Deprecated for UI, kept for reference if needed later)
   /*
   const handleJoin = async () => {
@@ -70,6 +54,24 @@ function App() {
   };
   */
 
+  /* 
+  // Post Job Handler (Deprecated for UI)
+  const handlePostJob = async () => {
+    if (!jobDesc || !jobBudget) return;
+    try {
+      writeContract({
+        address: CONTRACT_ADDRESS,
+        abi: ABI,
+        functionName: 'postJob',
+        args: [jobDesc],
+        value: parseEther(jobBudget)
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  */
+ 
   useEffect(() => {
     if (isConfirmed) {
       refetchProfile();
@@ -83,7 +85,7 @@ function App() {
   const isMember = !!profile?.[0];
   const memberMetadata = profile?.[2]?.toString() || 'NO_DATA';
   const memberReputation = profile?.[3]?.toString() || '0';
-  const memberJobsDone = profile?.[4]?.toString() || '0';
+  const memberJobsDone = profile?.[4]?.toString() || '0'; // Used in Profile Tab
   const jobCount = nextJobId ? Number(nextJobId) : 0;
 
   return (
