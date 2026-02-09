@@ -1,5 +1,5 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Terminal, Shield, Cpu, Activity, DollarSign, Plus, Check, Loader2 } from 'lucide-react';
+import { Terminal, Shield, Cpu, Activity, Plus, Check, Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { parseEther, formatEther } from 'viem';
@@ -75,7 +75,11 @@ function App() {
   }, [isConfirmed]);
 
   // Derived State
-  const isMember = agentProfile?.[0]; // Struct returns array: [isMember, isVerifiedSafe, ...]
+  const profile = agentProfile as unknown[] | undefined;
+  const isMember = profile?.[0];
+  const memberMetadata = profile?.[2]?.toString() || 'NO_DATA';
+  const memberReputation = profile?.[3]?.toString() || '0';
+  const memberJobsDone = profile?.[4]?.toString() || '0';
   const jobCount = nextJobId ? Number(nextJobId) : 0;
 
   return (
@@ -122,8 +126,8 @@ function App() {
           {isMember && (
             <div className="p-4 border border-[#00ff41] bg-[#00ff41]/10 text-sm">
               <h3 className="font-bold flex items-center gap-2"><Shield className="w-4 h-4"/> VERIFIED MEMBER</h3>
-              <p className="mt-2 text-[10px]">REPUTATION: {agentProfile?.[3]?.toString() || '0'}</p>
-              <p className="text-[10px]">JOBS DONE: {agentProfile?.[4]?.toString() || '0'}</p>
+              <p className="mt-2 text-[10px]">REPUTATION: {memberReputation}</p>
+              <p className="text-[10px]">JOBS DONE: {memberJobsDone}</p>
             </div>
           )}
 
@@ -241,13 +245,13 @@ function App() {
                       </div>
                       <div className="p-4 border border-[#008F11] bg-[#008F11]/5">
                          <div className="text-[#008F11] text-xs mb-1">TRUST_SCORE</div>
-                         <div className="text-xl">{agentProfile?.[3]?.toString() || '0'}</div>
+                         <div className="text-xl">{memberReputation}</div>
                       </div>
                     </div>
 
                     <div className="p-4 border border-[#008F11]">
                       <div className="text-[#008F11] text-xs mb-2">RAW_METADATA</div>
-                      <div className="break-all opacity-70">{agentProfile?.[2] || 'NO_DATA'}</div>
+                      <div className="break-all opacity-70">{memberMetadata}</div>
                     </div>
                  </div>
               ) : (
@@ -280,7 +284,7 @@ function JobRow({ jobId }: { jobId: number }) {
   // Job Struct: [id, employer, worker, budget, description, isCompleted, isPaid, createdAt]
   if (!job) return <div className="animate-pulse h-24 bg-[#008F11]/10 mb-4"></div>;
 
-  const [id, employer, worker, budget, description, isCompleted, isPaid] = job as any;
+  const [_id, employer, worker, budget, description, isCompleted, isPaid] = job as any;
   const isTaken = worker !== "0x0000000000000000000000000000000000000000";
 
   return (
