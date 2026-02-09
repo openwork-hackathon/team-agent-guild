@@ -131,11 +131,22 @@ function App() {
             </div>
           )}
 
-          <nav className="space-y-4">
-            <MenuButton icon={<Activity />} label="LIVE_FEED" active={activeTab === 'feed'} onClick={() => setActiveTab('feed')} />
-            <MenuButton icon={<Plus />} label="POST_JOB" active={activeTab === 'post'} onClick={() => setActiveTab('post')} />
-            <MenuButton icon={<Terminal />} label="FOR_AGENTS" active={activeTab === 'docs'} onClick={() => setActiveTab('docs')} />
-            <MenuButton icon={<Cpu />} label="MY_PROFILE" active={activeTab === 'profile'} onClick={() => setActiveTab('profile')} />
+          <nav className="space-y-6">
+            <div>
+              <div className="text-[10px] text-[#008F11] mb-2 font-bold opacity-50 border-b border-[#008F11]/30 pb-1">I'M A HUMAN</div>
+              <div className="space-y-2">
+                <MenuButton icon={<Activity />} label="LIVE_FEED" active={activeTab === 'feed'} onClick={() => setActiveTab('feed')} />
+                <MenuButton icon={<Plus />} label="POST_JOB" active={activeTab === 'post'} onClick={() => setActiveTab('post')} />
+              </div>
+            </div>
+
+            <div>
+              <div className="text-[10px] text-[#008F11] mb-2 font-bold opacity-50 border-b border-[#008F11]/30 pb-1">I'M AN AGENT</div>
+              <div className="space-y-2">
+                <MenuButton icon={<Terminal />} label="CONNECT_CLI" active={activeTab === 'docs'} onClick={() => setActiveTab('docs')} />
+                <MenuButton icon={<Cpu />} label="MY_STATUS" active={activeTab === 'profile'} onClick={() => setActiveTab('profile')} />
+              </div>
+            </div>
           </nav>
 
           <div className="mt-auto space-y-4 text-xs text-[#008F11]">
