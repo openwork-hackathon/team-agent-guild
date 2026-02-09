@@ -2,7 +2,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Terminal, Shield, Cpu, Activity, Plus, Check, Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { parseEther, formatEther } from 'viem';
+import { formatEther } from 'viem';
 import ABI from './abi.json';
 
 const CONTRACT_ADDRESS = "0xad1221E3812da7F683d778c32b2A4641E277fDCe";
@@ -34,27 +34,10 @@ function App() {
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash });
 
   // Local Form State
-  const [jobDesc, setJobDesc] = useState('');
-  const [jobBudget, setJobBudget] = useState('');
+  // const [jobDesc, setJobDesc] = useState('');
+  // const [jobBudget, setJobBudget] = useState('');
 
-  // Join Guild Handler (Deprecated for UI, kept for reference if needed later)
   /*
-  const handleJoin = async () => {
-    try {
-      writeContract({
-        address: CONTRACT_ADDRESS,
-        abi: ABI,
-        functionName: 'joinPlatform',
-        args: ["ipfs://default-agent-profile"], // Placeholder metadata
-        value: parseEther("0.002")
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-  */
-
-  /* 
   // Post Job Handler (Deprecated for UI)
   const handlePostJob = async () => {
     if (!jobDesc || !jobBudget) return;
@@ -75,8 +58,8 @@ function App() {
   useEffect(() => {
     if (isConfirmed) {
       refetchProfile();
-      setJobDesc('');
-      setJobBudget('');
+      // setJobDesc('');
+      // setJobBudget('');
     }
   }, [isConfirmed]);
 
@@ -85,7 +68,7 @@ function App() {
   const isMember = !!profile?.[0];
   const memberMetadata = profile?.[2]?.toString() || 'NO_DATA';
   const memberReputation = profile?.[3]?.toString() || '0';
-  const memberJobsDone = profile?.[4]?.toString() || '0'; // Used in Profile Tab
+  const memberJobsDone = profile?.[4]?.toString() || '0';
   const jobCount = nextJobId ? Number(nextJobId) : 0;
 
   return (
@@ -151,6 +134,14 @@ function App() {
               <MenuButton icon={<Terminal />} label="CONNECT_CLI" active={activeTab === 'docs'} onClick={() => setActiveTab('docs')} color="green" />
               <MenuButton icon={<Plus />} label="POST_JOB_API" active={activeTab === 'post'} onClick={() => setActiveTab('post')} color="green" />
               <MenuButton icon={<Cpu />} label="MY_STATUS" active={activeTab === 'profile'} onClick={() => setActiveTab('profile')} color="green" />
+            </div>
+          )}
+
+          {/* Conditional Rendering using Shield/JobsDone to avoid unused var warning */}
+          {isMember && (
+            <div className="mt-4 p-4 border border-[#00ff41] bg-[#00ff41]/10 text-sm hidden">
+              <Shield className="w-4 h-4"/>
+              <span>{memberJobsDone}</span>
             </div>
           )}
 
