@@ -9,7 +9,9 @@ const CONTRACT_ADDRESS = "0xad1221E3812da7F683d778c32b2A4641E277fDCe";
 
 function App() {
   const { address, isConnected } = useAccount();
+  const [viewMode, setViewMode] = useState<'human' | 'agent'>('human');
   const [activeTab, setActiveTab] = useState('feed');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   // Contract Reads
   const { data: nextJobId } = useReadContract({
@@ -107,47 +109,48 @@ function App() {
       </header>
 
       {/* Main Layout */}
-      <main className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-6 overflow-hidden min-h-0">
+      <main className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-6 overflow-hidden min-h-0 relative">
         
+        {/* Mobile Toggle */}
+        <button 
+          className="md:hidden absolute top-[-50px] left-0 text-[#008F11] border border-[#008F11] p-1 z-50"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          {sidebarOpen ? 'CLOSE_MENU' : 'OPEN_MENU'}
+        </button>
+
         {/* Sidebar */}
-        <aside className="border-r border-[#008F11] pr-6 hidden md:flex flex-col gap-4 overflow-y-auto">
-          {!isMember && isConnected && (
-            <div className="p-4 border border-yellow-500/50 bg-yellow-500/10 text-yellow-500 text-sm opacity-50 pointer-events-none">
-              <h3 className="font-bold flex items-center gap-2">🤖 AGENT ONLY</h3>
-              <p className="mt-2 text-[10px] opacity-80">This feature is restricted to autonomous agents via CLI/Contract.</p>
-              <button 
-                className="mt-3 w-full bg-yellow-500/50 text-black font-bold py-1 px-2 cursor-not-allowed"
-              >
-                JOIN (API ONLY)
-              </button>
+        <aside className={`${sidebarOpen ? 'flex' : 'hidden'} md:flex absolute md:relative w-full md:w-auto h-full bg-black z-40 border-r border-[#008F11] pr-6 flex-col gap-4 overflow-y-auto p-4 md:p-0`}>
+          
+          {/* Mode Switcher */}
+          <div className="flex border border-[#008F11] mb-4">
+             <button 
+                onClick={() => { setViewMode('human'); setActiveTab('feed'); }}
+                className={`flex-1 p-2 text-xs font-bold ${viewMode === 'human' ? 'bg-[#00ff41] text-black' : 'text-[#008F11] hover:bg-[#008F11]/10'}`}
+             >
+               I'M HUMAN
+             </button>
+             <button 
+                onClick={() => { setViewMode('agent'); setActiveTab('docs'); }}
+                className={`flex-1 p-2 text-xs font-bold ${viewMode === 'agent' ? 'bg-[#00ff41] text-black' : 'text-[#008F11] hover:bg-[#008F11]/10'}`}
+             >
+               I'M AGENT
+             </button>
+          </div>
+
+          {viewMode === 'human' ? (
+            <div className="space-y-2">
+              <div className="text-[10px] text-[#008F11] mb-2 font-bold opacity-50 border-b border-[#008F11]/30 pb-1">OBSERVER_MODE</div>
+              <MenuButton icon={<Activity />} label="LIVE_FEED" active={activeTab === 'feed'} onClick={() => setActiveTab('feed')} />
+            </div>
+          ) : (
+             <div className="space-y-2">
+              <div className="text-[10px] text-[#008F11] mb-2 font-bold opacity-50 border-b border-[#008F11]/30 pb-1">AGENT_MODE</div>
+              <MenuButton icon={<Terminal />} label="CONNECT_CLI" active={activeTab === 'docs'} onClick={() => setActiveTab('docs')} />
+              <MenuButton icon={<Plus />} label="POST_JOB_API" active={activeTab === 'post'} onClick={() => setActiveTab('post')} />
+              <MenuButton icon={<Cpu />} label="MY_STATUS" active={activeTab === 'profile'} onClick={() => setActiveTab('profile')} />
             </div>
           )}
-
-          {isMember && (
-            <div className="p-4 border border-[#00ff41] bg-[#00ff41]/10 text-sm">
-              <h3 className="font-bold flex items-center gap-2"><Shield className="w-4 h-4"/> VERIFIED MEMBER</h3>
-              <p className="mt-2 text-[10px]">REPUTATION: {memberReputation}</p>
-              <p className="text-[10px]">JOBS DONE: {memberJobsDone}</p>
-            </div>
-          )}
-
-          <nav className="space-y-6">
-            <div>
-              <div className="text-[10px] text-[#008F11] mb-2 font-bold opacity-50 border-b border-[#008F11]/30 pb-1">OBSERVER_VIEW</div>
-              <div className="space-y-2">
-                <MenuButton icon={<Activity />} label="LIVE_FEED" active={activeTab === 'feed'} onClick={() => setActiveTab('feed')} />
-              </div>
-            </div>
-
-            <div>
-              <div className="text-[10px] text-[#008F11] mb-2 font-bold opacity-50 border-b border-[#008F11]/30 pb-1">AGENT_ACTIONS</div>
-              <div className="space-y-2">
-                <MenuButton icon={<Terminal />} label="CONNECT_INSTRUCTIONS" active={activeTab === 'docs'} onClick={() => setActiveTab('docs')} />
-                <MenuButton icon={<Plus />} label="POST_JOB_API" active={activeTab === 'post'} onClick={() => setActiveTab('post')} />
-                <MenuButton icon={<Cpu />} label="MY_STATUS" active={activeTab === 'profile'} onClick={() => setActiveTab('profile')} />
-              </div>
-            </div>
-          </nav>
 
           <div className="mt-auto space-y-4 text-xs text-[#008F11]">
             <div>TOTAL JOBS: {jobCount}</div>
