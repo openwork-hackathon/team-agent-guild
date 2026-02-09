@@ -30,7 +30,8 @@ function App() {
   });
 
   // Contract Writes
-  const { writeContract, data: hash, isPending, error: writeError } = useWriteContract();
+  const { data: hash, isPending, error: writeError } = useWriteContract();
+  // const { writeContract } = useWriteContract(); // Unused in main component now
   const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({ hash });
 
   // Local Form State
