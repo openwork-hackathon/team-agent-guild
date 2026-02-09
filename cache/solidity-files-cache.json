@@ -35,6 +35,41 @@
       "artifacts": [
         "AgentWork"
       ]
+    },
+    "/home/ubuntu/.openclaw/workspace/agent-guild-protocol/contracts/AgentWork.sol": {
+      "lastModificationDate": 1770592654740,
+      "contentHash": "176b74a0543743bb07f44333e2635b5f",
+      "sourceName": "contracts/AgentWork.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "AgentWork"
+      ]
     }
   }
 }

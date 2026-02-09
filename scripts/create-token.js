@@ -61,7 +61,14 @@ async function main() {
   console.log("Creating Token AGUILD...");
   
   try {
-      const tx = await bond.createToken(tokenParams, bondParams, { value: fee });
+      const feeData = await hre.ethers.provider.getFeeData();
+      // Use 1.5x the current gas price to unstick it
+      const gasPrice = feeData.gasPrice * 150n / 100n; 
+      
+      const tx = await bond.createToken(tokenParams, bondParams, { 
+        value: fee,
+        gasPrice: gasPrice
+      });
       console.log("Transaction sent:", tx.hash);
       
       const receipt = await tx.wait();
